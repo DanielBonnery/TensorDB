@@ -1,0 +1,16 @@
+Package: TensorDB
+Type: Package
+Title: X
+Version: 1.0 
+Date: 2016-09-07
+Author: D. Bonnery
+Maintainer: D. Bonnery  <dbonnery@umd.edu>
+Imports: abind,
+	Hmisc,
+	MASS,
+	plyr
+Suggests: 
+Description: Data
+License: GPL (>= 2)
+LazyLoad: yes
+LazyData: true
