@@ -36,11 +36,6 @@ A2M<-function(A,n,p=if(is.character(n)){setdiff(names(dimnames(A),n))}else{setdi
   if(is.character(p)){p<-match(p,names(dimnames(A)))}
   array(aperm(A,c(n,p)),c(prod(dim(A)[n]),prod(dim(A)[p])))}
 
-n=c(I_A$c,I_A$n);p="x6";
-if(is.character(n)){n<-match(n,names(dimnames(A)))};
-if(is.character(p)){p<-match(p,names(dimnames(A)))}
-dim(a)[n]
-dim(a)[p]
 
 
 
