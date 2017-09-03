@@ -49,14 +49,18 @@ extractA<-function(A,a,...){
   function(A,B,I_A=list(c=integer(0),n=1:length(dim(A)),p=integer(0)),
            I_B=list(c=integer(0),p=integer(0),q=1:length(dim(B)))){
     dime<-c(dim(A)[match(I_A$n,names(dimnames(A)))],dim(B)[match(I_B$q,names(dimnames(B)))])
-    D=if(length(I_A$c)>0){expand.grid(dimnames(A)[I_A$c])}else{data.frame(row.names = 1)}
-    
-    C<-plyr::maply(.data=D,.fun=function(...){
-      plyr::aaply(extractA(A,I_A$c,...),I_A$a,function(a){
-        plyr::aaply(extractA(B,I_B$c,...),I_B$b,function(b){
-          array(A2M(a,c(I_A$c,I_A$n),c(I_A$p))%*%A2M(b,c(I_B$p),c(I_B$c,I_B$q)),
-                dime)
-        })})})
+    D=if(length(I_A$c)>0){expand.grid(dimnames(A)[I_A$c])
+      C<-plyr::maply(.data=D,.fun=function(...){
+        plyr::aaply(extractA(A,I_A$n,...),I_A$c,function(a){
+          plyr::aaply(extractA(B,I_B$q,...),I_B$c,function(b){
+            array(A2M(a,c(I_A$c,I_A$n),c(I_A$p))%*%A2M(b,c(I_B$p),c(I_B$c,I_B$q)),
+                  dime)
+          })})})
+      
+      }else{
+        C<-array(A2M(A,c(I_A$n),c(I_A$p))%*%A2M(B,I_B$p,I_B$q),
+                    dime)
+            }
     dimnames(C)<-c(dimnames(A)[c(I_A$c,I_A$n)],dimnames(B)[I_B$q])
     C
   }
