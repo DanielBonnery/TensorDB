@@ -1,4 +1,3 @@
-
 A2M<-function(A,n,p=if(is.character(n)){setdiff(names(dimnames(A),n))}else{setdiff(1:length(dim(A)),n)}){
   if(is.character(n)){n<-match(n,names(dimnames(A)))}
   if(is.character(p)){p<-match(p,names(dimnames(A)))}
@@ -48,8 +47,12 @@ extractA<-function(A,a,...){
 "%.%" <-
   function(A,B,I_A=list(c=integer(0),n=1:length(dim(A)),p=integer(0)),
            I_B=list(c=integer(0),p=integer(0),q=1:length(dim(B)))){
-    dime<-c(dim(A)[match(I_A$n,names(dimnames(A)))],dim(B)[match(I_B$q,names(dimnames(B)))])
-    D=if(length(I_A$c)>0){expand.grid(dimnames(A)[I_A$c])
+    I_A=lapply(I_A,function(x){if(is.character(x)){
+      match(x,names(dimnames(A)))}else{x}})
+    I_B=lapply(I_B,function(x){if(is.character(x)){
+      match(x,names(dimnames(B)))}else{x}})
+    dime<-c(dim(A)[I_A$n],dim(B)[I_B$q])
+    if(length(I_A$c)>0){D=expand.grid(dimnames(A)[I_A$c],stringsAsFactors = FALSE)
       C<-plyr::maply(.data=D,.fun=function(...){
         plyr::aaply(extractA(A,I_A$n,...),I_A$c,function(a){
           plyr::aaply(extractA(B,I_B$q,...),I_B$c,function(b){
