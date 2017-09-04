@@ -53,12 +53,12 @@ extractA<-function(A,a,...){
       match(x,names(dimnames(B)))}else{x}})
     dime<-c(dim(A)[I_A$n],dim(B)[I_B$q])
     if(length(I_A$c)>0){D=expand.grid(dimnames(A)[I_A$c],stringsAsFactors = FALSE)
-      C<-plyr::maply(.data=D,.fun=function(...){
-        plyr::aaply(extractA(A,I_A$n,...),I_A$c,function(a){
-          plyr::aaply(extractA(B,I_B$q,...),I_B$c,function(b){
-            array(A2M(a,c(I_A$c,I_A$n),c(I_A$p))%*%A2M(b,c(I_B$p),c(I_B$c,I_B$q)),
-                  dime)
-          })})})
+    C<-plyr::maply(.data=D,.fun=function(...){
+      a=extractA(A,I_A$c,...)
+      b=extractA(B,I_B$c,...)
+      array(A2M(a,c(I_A$c,I_A$n),c(I_A$p))%*%A2M(b,c(I_B$p),c(I_B$c,I_B$q)),
+            dime)
+    })
       
       }else{
         C<-array(A2M(A,c(I_A$n),c(I_A$p))%*%A2M(B,I_B$p,I_B$q),
