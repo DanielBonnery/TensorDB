@@ -1,20 +1,16 @@
-Package: CompositeRegressionEstimation
+Package: TensorDB
 Type: Package
 Title: X
 Version: 1.0 
-Date: 2017-09-03
+Date: 2017-09-08
 Author: D. Bonnery
 Maintainer: D. Bonnery  <dbonnery@umd.edu>
-Imports: ggplot2,
-	abind,
-	optimx,
-	Matrix,
+Imports: abind,
 	Hmisc,
 	MASS,
-	filehash
+	plyr
 Suggests: 
 Description: Data
-Remotes: DanielBonnery/TensorDB
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
