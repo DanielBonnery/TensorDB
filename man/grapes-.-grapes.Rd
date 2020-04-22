@@ -7,14 +7,23 @@
 A \%.\% B
 }
 \arguments{
-\item{A}{An array of dimension $\prod_{i\in I_A} a_i$}
+\item{A}{An (eventually named) array of dimension \eqn{\mathrm{dim}(A)=(a_i)_{i\in I_A}}}
 
-\item{B}{An array of dimension $\prod_{i\in I_B} b_i$}
+\item{B}{An (eventually named) array of dimension \eqn{\mathrm{dim}(B)=(b_j)_{j\in I_B}}}
 
-\item{I_A, }{I_B list of subvectors from names(dimnames(A)) and names(dimnames(B))}
+\item{I_A}{a named list of subvectors from names(dimnames(A)) or from 1:length(dim(A)). \eqn{I_A=(I_A^{(c)},I_A^{(n)},I_A^{(p)})}.}
+
+\item{I_B}{a named list of subvectors from names(dimnames(B)) or from 1:length(dim(B)). \eqn{I_B=(I_B^{(c)},I_B^{(p)},I_B^{(q)})}. 
+Necessarily, \eqn{(\mathrm{dim}(A))_{I_A^{(p)}}=(\mathrm{dim}(B))_{I_B^{(p)}}} (e.g dim(A)[I_A$p]==dim(B)[I_B$p]) and \eqn{(\mathrm{dim}(A))_{i\in I_A^{(c)}}=(\mathrm{dim}(B))_{i\in I_B^{(c)}}} e.g dim(A)[I_A$c]==dim(B)[I_B$c])}
 }
 \value{
-C=AB the array of dimension prod_{i\in Ia\cup Ib\cup I}a_1 x ... x a_q x b_1 x ... x b_n  Y[i_1,...,i_q,j_1,...,j_n]=sum_{k_1,...,k_p}(W[i_1,...,i_q,j_1,...,j_n,k_1,...,k_p]*X[j_1,...,i_q,k_1,...,k_p])
+C=AB the array of dimension \eqn{\left((a_\ell)_{\ell\in I_A^{(c)}},(a_i)_{i\in I_A^{(n)}}(b_j)_{j\in I_B^{(q)}}\right)} 
+ defined by 
+ \deqn{\forall (\ell_1,\ldots,\ell_C)\in\prod_{i\in I_A^{(c)}}\{1,\ldots, a_i\},}
+ \deqn{\forall (i_1,\ldots,i_N)\in\prod_{i\in I_A^{(n)}}\{1,\ldots ,a_i\},} 
+ \deqn{\forall (j_1,\ldots,j_Q)\in\prod_{j\in I_B^{(q)}}\{1,\ldots ,b_j\},} 
+\deqn{C[\ell_1,\ldots,\ell_C,i_1,\ldots,i_N,j_1,\ldots,j_Q]=\sum_{k_1=1}^{K_1}\!\!\ldots\!\!\sum_{k_P=1}^{K_P}A^\star[\ell_1,\ldots,\ell_C,i_1,...,i_q,k_1,...,k_p]\times B^\star[\ell_1,\ldots,\ell_C,k_1,...,k_p,j_1,...,j_n])}
+where \eqn{A^\star} and \eqn{B^\star} are multidimensional transposition of \eqn{A} and \eqn{B} and \eqn{K_1,\ldots,K_P=\mathrm{dim}(A)_{I_A^{(p)}}}.
 }
 \description{
 Define a tensor product
