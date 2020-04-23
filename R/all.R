@@ -61,7 +61,8 @@ extractA<-function(A,a,...){
 
 "%.%" <-
   function(A,B,I_A=list(c=integer(0),n=1:length(dim(A)),p=integer(0)),
-           I_B=list(c=integer(0),p=integer(0),q=1:length(dim(B)))){
+           I_B=list(c=integer(0),p=integer(0),q=1:length(dim(B))),
+           requiresameindices=F){
     I_A=lapply(I_A,function(x){if(is.character(x)){
       match(x,names(dimnames(A)))}else{x}})
     I_B=lapply(I_B,function(x){if(is.character(x)){
@@ -71,7 +72,8 @@ extractA<-function(A,a,...){
     C<-plyr::maply(.data=D,.fun=function(...){
       a=extractA(A,I_A$c,...)
       b=extractA(B,I_B$c,...)
-      array(A2M(a,c(I_A$c,I_A$n),c(I_A$p))%*%A2M(b,c(I_B$p),c(I_B$c,I_B$q)),
+      if(requiresameindices){b<-extractA(b,I_B$c,dimnames(A)[I_A$c])}
+      array(A2M(a,c(I_A$c,I_A$n),c(I_A$p))%*%(A2M(b,c(I_B$p),c(I_B$c,I_B$q))),
             dime)
     })
       
