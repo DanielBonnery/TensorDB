@@ -72,7 +72,7 @@ extractA<-function(A,a,...){
     C<-plyr::maply(.data=D,.fun=function(...){
       a=extractA(A,I_A$c,...)
       b=extractA(B,I_B$c,...)
-      if(requiresameindices){b<-extractA(b,I_B$c,dimnames(A)[I_A$c])}
+      if(requiresameindices){b<-extractA(b,I_B$p,dimnames(A)[I_A$p])}
       array(A2M(a,c(I_A$c,I_A$n),c(I_A$p))%*%(A2M(b,c(I_B$p),c(I_B$c,I_B$q))),
             dime)
     })
